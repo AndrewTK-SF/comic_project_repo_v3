@@ -1,0 +1,28 @@
+.container {
+    max-width: 2200px;
+    height: 1200px;
+    position: absolute;
+    text-align: center;
+}
+
+.col-4{
+    margin-top: 50px;
+    border-radius: 15px;
+    border:lightgray solid 5px;
+}
+
+.navbar{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border:lightgray solid 5px;
+}
+
+h3{
+    margin-top: 15px;
+}
+
+.btn1{
+    margin-bottom: 25px;
+    margin-top: 15px;
+}

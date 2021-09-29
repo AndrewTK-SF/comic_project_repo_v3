@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'css/collection_detail.css' %}">
+        <title>Collection Details!</title>
+    </head>
+    <body>
+        <div class="container" style="background-image: url('https://i2.wp.com/cultofgeorge.com/wp-content/uploads/2017/02/CGC-Comics-Web.jpg?fit=1500%2C1125&ssl=1')";>
+            <nav class="navbar navbar-light">
+                <a class="btn btn-sm btn-outline-secondary" href="/home">Home</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/fav_page">Favorites</a>
+                <a class="btn btn-sm btn-outline-secondary" href='/{{this_collection.id}}/collection_edit'>Edit Collection Details</a>
+                <a class="btn btn-sm btn-outline-secondary" href="javascript:history.go(-1)">Back</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+            </nav>
+            <div class="page-header">
+                <h1>Collection Name:  {{this_collection.col_name}}</h1>
+                <h2># of issues:  {{total_issues}}</h2>
+            </div>  
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <h3>Issues in Collection</h3>
+                    <a class="btn2 btn-sm btn-outline-secondary" href='/{{this_collection.id}}/alpha_collection_detail'>sort alpha</a>
+                    <a class="btn2 btn-sm btn-outline-secondary" href='/{{this_collection.id}}/rd_collection_detail'>sort release date</a>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Date Released</th>
+                                <th scope="col">Date Added</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            {%for issue in issues%}
+                                <td><a class="btn btn-sm btn-outline-secondary" href="/{{issue.id}}/un_to_collection_in_collection">Remove</a></td>
+                                <td><a href='/{{issue.id}}/comic_detail'>{{issue.title}}</a></td>
+                                <td>
+                                    <script>
+                                        var date = ('{{issue.release_date}}').slice(0,10);
+                                        document.write(date)
+                                    </script>
+                                </td>
+                                <td>{{issue.created_at|date:'Y-m-d'}}</td>
+                            </tr>
+                        </tbody>
+                        {%endfor%}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>  

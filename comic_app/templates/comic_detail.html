@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'css/comic_detail.css' %}">
+        <title>Comic Detail</title>
+    </head>
+    <body>
+        <div class="container" style="background-image: url('https://img1.wsimg.com/isteam/ip/49db471c-765e-4c24-829d-34a3c3beda44/Background-1.jpg')";>  
+            <nav class="navbar navbar-light bg-light">
+                <a class="btn btn-sm btn-outline-secondary" href="/home">Home</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/fav_page">Favorites</a>
+                <a class="btn btn-sm btn-outline-secondary" href="javascript:history.go(-1)">Back</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+            </nav>
+            <div class="page-header">
+                <h2>Issue Details</h2>
+                <h2>{{this_comic.title}}</h2>
+                {% if this_user in this_comic.favorite.all %}
+                <a class="btn btn-sm btn-outline-secondary" style=color:white href="/{{this_comic.id}}/un_fav">Un-favorite</a></td>
+                {%else%}
+                <a class="btn btn-sm btn-outline-secondary" style=color:white href="/{{this_comic.id}}/add_fav">Add to Favorites</a></td>
+                {%endif%}
+                <a class="btn btn-sm btn-outline-secondary" style=color:white href="/{{this_comic.id}}/del_comic">Delete Comic</a>
+            </div> 
+            <div class="row">
+                        <div class="col md-auto">
+                            <table class='table'>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date Released</th>
+                                        <th scope="col">Date Added</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <script>
+                                                var date = ('{{this_comic.release_date}}').slice(0,10);
+                                                document.write(date)
+                                            </script>
+                                        </td>
+                                        <td>{{this_comic.created_at|date:'Y-m-d'}}</td>
+                                    </tr>
+                                    <div class="row1">
+                                        <img  class='cover' src= '{{img_path}}' alt='crap'>
+                                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col md-auto" style='background-color:#adb5bd;'>
+                            <h3>Creators</h3>
+                            <table class='table'>
+                                <thead>
+                                    {% for creator in creators %}
+                                    <tr>
+                                        <th scope="col" class='role'>{{creator.role}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{creator.name}}</td>
+                                    </tr>
+                                </tbody>
+                                {%endfor%}
+                            </table>
+                        </div>
+                        <div class="col md-auto">
+                            <table class='table'>
+                                <h3>Collections</h3>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for collection in collections%}
+                                    <tr>
+                                        <td>
+                                            {% if this_comic in collection.comic.all %}
+                                            <a class="btn btn-sm btn-outline-secondary" href="/{{collection.id}}/un_to_collection">Remove from collection</a></td>
+                                            {%else%}
+                                            <a class="btn btn-sm btn-outline-secondary" href="/{{collection.id}}/add_to_collection">Add to collection</a></td>
+                                            {%endif%}
+                                            <td><a href='/{{collection.id}}/collection_detail'>{{collection.col_name}}</a></td>
+                                    </tr>
+                                </tbody>
+                                {%endfor%}
+                            </table>
+                        </div>
+                        <div class="col md-auto" style='background-color:#adb5bd;'>
+                            <form action='/{{this_comic.id}}/add_note' method='POST'>
+                                {% csrf_token %}
+                                <div class='form-group'>
+                                    <h3>Notes</h3>
+                                    <label for='notes'></label>
+                                    <h6>{{this_comic.notes}}</h6>
+                                    <input class='textarea' type='textarea' name='note'>
+                                </div>
+                                <div class='form-group'>
+                                    <button type="submit" class="btn btn-primary">Add note</button>
+                                </div>
+                            </form>
+                            <ul>
+                                {% if messages %}
+                                    {% for  message in messages %}
+                                    <li>{{message}}</li>
+                                    {% endfor %}
+                                {%endif%}
+                            </ul>
+                        </div>
+            </div>
+    </body>
+</html>
+

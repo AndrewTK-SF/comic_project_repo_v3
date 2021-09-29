@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'css/landing.css' %}">
+        <title>Landing Page</title>
+    </head>
+    <body>
+        <div class="container" style="background-image: url('https://griffinroar.com/wp-content/uploads/2018/03/8015843393_ad09333276_k.jpg')";>
+            <div class="page-header">
+                <!-- <h1>Welcome, {{current_user.first_name}}</h1>
+                <h2># of issues in library:  {{issues_total}}</h2> -->
+            </div>    
+                <nav class="navbar navbar-light">
+                    <a class="btn btn-sm btn-outline-secondary" href="/fav_page">Favorites</a>
+                    <h1>Welcome, {{current_user.first_name}}</h1>
+                    <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+                </nav>
+                <div class="row">
+                    <div class="col-2 md-auto">
+                        <h3>Add Comic to Library</h3>
+                        <form  action='/add_comic' method='POST'> 
+                        {%csrf_token%}
+                            <input type="text" class="form-control form-control-lg" name='upc'>
+                            <button class="btn1 btn-info btn-lg btn-block" button type='submit'>Submit</button>
+                        </form>
+                        <div class='most_fav'>
+                            <h6>Mosted favorited issue!</h6>
+                            <img src='{{pic}}' alt='shit'>
+                            <h6>{{title}}</h6>
+                        </div>
+                    </div>
+                    <div class="col md-auto" style='background-color:#adb5bd;'>
+                        <ul>
+                            {% if messages %}
+                            {% for  message in messages %}
+                            <li style="color: red;">{{message}}</li>
+                            {% endfor %}
+                            {%endif%}
+                        </ul>
+                        <h3>Library</h3>
+                        <h6># of issues in library:  {{issues_total}}</h6>
+                        <a class="btn btn-sm btn-outline-secondary" href="/landing">sort date added</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="/rd_landing">sort release date</a>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <!-- <th scope="col"></th> -->
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Release Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                {%for alpha_list in alpha_lists%}
+                                    <!-- <td>
+                                        {% if current_user in comic.favorite.all %}
+                                        <a class="btn btn-sm btn-outline-secondary" href="/{{comic.id}}/un_fav">Un-favorite</a></td>
+                                        {%else%}
+                                        <a class="btn btn-sm btn-outline-secondary" href="/{{comic.id}}/add_fav">Favorite</a></td>
+                                        {%endif%}
+                                    </td> -->
+                                    <td><a href='/{{alpha_list.id}}/comic_detail'>{{alpha_list.title}}</td>
+                                    <td>
+                                        <script>
+                                            var date = ('{{alpha_list.release_date}}').slice(0,10);
+                                            document.write(date)
+                                        </script>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            {%endfor%}
+                        </table>
+                    </div>
+                    <div class="col-2 md-auto">
+                        <h3>My Collections</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for collection in collections%}
+                                <tr>
+                                    <td><a href='/{{collection.id}}/collection_detail'>{{collection.col_name}}</a></td>
+                                </tr>
+                            </tbody>
+                                {%endfor%}
+                        </table>
+                        <h5>Add Collection</h5>
+                        <form action='/add_collection' method='POST'> 
+                            {%csrf_token%}
+                            <input type="text" class="form-control form-control-lg" name='new_col_name'>
+                            <button class="btn1 btn-info btn-lg btn-block" button type='submit'>Submit</button>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>
+

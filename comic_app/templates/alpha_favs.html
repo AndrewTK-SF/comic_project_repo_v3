@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'css/fav_page.css' %}">
+        <title>Fav page!</title>
+    </head>
+    <body>
+        <div class="container" style="background-image: url('https://cdn.arstechnica.net/wp-content/uploads/2018/11/stan-lee-comic-spread.jpg')";> 
+            <nav class="navbar navbar-light">
+                <a class="btn btn-sm btn-outline-secondary" href="/home">Home</a>
+                <a class="btn btn-sm btn-outline-secondary" href="javascript:history.go(-1)">Back</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+            </nav>
+            <div class="row justify-content-center"> 
+                <div class="col-5">
+                    <h2>Favorites List</h2>
+                    <h4 style># of favorites:  {{total_favs}}</h4>
+                    <a class="btn btn-sm btn-outline-secondary" href="/fav_page">sort date added</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="/rd_fav_page">sort release date</a>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Date Released</th>
+                                <th scope="col">Date Added</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            {%for favorite in favorites%}
+                                <td><a class="btn btn-sm btn-outline-secondary" href="/{{favorite.id}}/un_fav_fav_list">un-favorite</a></td>
+                                <td><a href='/{{favorite.id}}/comic_detail'>{{favorite.title}}</a></td>
+                                <td>
+                                    <script>
+                                        var date = ('{{favorite.release_date}}').slice(0,10);
+                                        document.write(date)
+                                    </script>
+                                </td>
+                                <td>{{favorite.created_at|date:'Y-m-d'}}</td>
+                            </tr>
+                        </tbody>
+                        {%endfor%}
+                    </table>
+                </div>  
+            </div>
+        </div>
+    </body>
+</html>  

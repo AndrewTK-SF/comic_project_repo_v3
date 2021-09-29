@@ -1,0 +1,27 @@
+.container {
+    max-width: 2200px;
+    height: 1200px;
+    position: absolute;
+    text-align: center;
+    /* z-index: 10; */
+}
+
+.navbar{
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+}
+
+.col-6{
+    border: rgb(105, 20, 5) solid 3px;
+    margin: 100px;
+    border-radius: 15px;
+    border-radius: 10px;
+    background-color:aliceblue;
+    border:lightgray solid 5px;
+}
+
+.btn1{
+    margin-bottom: 20px;
+}
+

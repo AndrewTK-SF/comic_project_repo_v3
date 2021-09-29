@@ -1,0 +1,36 @@
+.container {
+    max-width: 2200px;
+    height: 1200px;
+    position: absolute;
+    text-align: center;
+    /* z-index: 10; */
+}
+
+.navbar{
+    margin-top: 15px;
+    margin-bottom: 80px;
+    border-radius: 5px;
+    border:lightgray solid 5px;
+
+}
+
+.page-header{
+    color: white;
+    margin-bottom: 25px;
+}
+
+.col-2{
+    margin: 10px;
+    border-radius: 10px;
+
+}
+
+.btn1{
+    margin-bottom: 25px;
+}
+
+.btn4{
+    margin-top: 20px;
+    margin-bottom: 55px;
+
+}

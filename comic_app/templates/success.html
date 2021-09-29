@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        {% load static %}
+        <link rel='stylesheet' href="{% static 'css/success.css' %}">
+        <title>Successful Registration</title>
+    </head>
+    <body>
+        <div class="container" style="background-image: url('https://griffinroar.com/wp-content/uploads/2018/03/8015843393_ad09333276_k.jpg')";>
+            <nav class="navbar navbar-light bg-light">
+                <a class="btn btn-sm btn-outline-secondary" href="/home">Home</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+            </nav>
+            <div class="row justify-content-center">
+                <div class="col-6 md-auto" style='background-color:#adb5bd;'>
+                    <div class='message'>
+                        <h1>Registration successful!</h1>
+                        <h1>Welcome, {{user.first_name}}</h1>  
+                        <h4>Let's start building your comic book library</h4>
+                        <h4>Click Home to navigate to the home page</h4>
+                    </div>
+                    <form  action='/home' method='POST'> 
+                        {%csrf_token%}
+                        <button class="btn1 btn-info btn-lg btn-block" button type='submit'>Home</button>
+                        <ul>
+                            {% if messages %}
+                            {% for  message in messages %}
+                            <li>{{message}}</li>
+                            {% endfor %}
+                            {%endif%}
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>       
+    </body>
+</html>

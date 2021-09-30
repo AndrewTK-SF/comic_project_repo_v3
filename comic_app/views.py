@@ -128,30 +128,50 @@ def landing(request):
         else:
             print('crap')
     print(arr)
-    count=Counter(arr)
-    print(count)
-    new=count.most_common()
-    print(new)
-    (j,_)=(new[0])
-    winner=j
-    print(winner)
-    t = time.time()
-    tr = round(t)
-    ts = str(tr)
-    pubk= os.getenv('API_pub')
-    prik=os.getenv('API_pri')
-    key = ts+prik+pubk
-    hash = hashlib.md5(key.encode("utf-8")).hexdigest()
-    print(hash)
-    com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
-    com_json=com.json()
-    com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
-    print(com_dumps)
-    image = com_json['data']['results'][0]['images'][0]['path']
-    print(image)
-    image_path=(image+'/portrait_fantastic.jpg')
-    print(image_path)
-    book_title=com_json['data']['results'][0]['title']
+    if len(arr) <1:
+        winner='75960609014300111'
+        t = time.time()
+        tr = round(t)
+        ts = str(tr)
+        pubk= os.getenv('API_pub')
+        prik=os.getenv('API_pri')
+        key = ts+prik+pubk
+        hash = hashlib.md5(key.encode("utf-8")).hexdigest()
+        print(hash)
+        com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
+        com_json=com.json()
+        com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
+        print(com_dumps)
+        image = com_json['data']['results'][0]['images'][0]['path']
+        print(image)
+        image_path=(image+'/portrait_fantastic.jpg')
+        print(image_path)
+        book_title=com_json['data']['results'][0]['title']
+    else: 
+        count=Counter(arr)
+        print(count)
+        new=count.most_common()
+        print(new)
+        (j,_)=(new[0])
+        winner=j
+        print(winner)
+        t = time.time()
+        tr = round(t)
+        ts = str(tr)
+        pubk= os.getenv('API_pub')
+        prik=os.getenv('API_pri')
+        key = ts+prik+pubk
+        hash = hashlib.md5(key.encode("utf-8")).hexdigest()
+        print(hash)
+        com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
+        com_json=com.json()
+        com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
+        print(com_dumps)
+        image = com_json['data']['results'][0]['images'][0]['path']
+        print(image)
+        image_path=(image+'/portrait_fantastic.jpg')
+        print(image_path)
+        book_title=com_json['data']['results'][0]['title']
     context={
         'comics':user.uploader.all,
         'current_user':user,
@@ -174,31 +194,51 @@ def alpha_landing(request):
         else:
             print('crap')
     print(arr)
-    count=Counter(arr)
-    print(count)
-    new=count.most_common()
-    print(new)
-    (j,_)=(new[0])
-    winner=j
-    print(winner)
-    t = time.time()
-    tr = round(t)
-    ts = str(tr)
-    pubk= os.getenv('API_pub')
-    prik=os.getenv('API_pri')
-    key = ts+prik+pubk
-    hash = hashlib.md5(key.encode("utf-8")).hexdigest()
-    print(hash)
-    com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
-    com_json=com.json()
-    com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
-    # print(com_dumps)
-    image = com_json['data']['results'][0]['images'][0]['path']
-    print(image)
-    image_path=(image+'/portrait_fantastic.jpg')
-    print(image_path)
-    print(list)
-    book_title=com_json['data']['results'][0]['title']
+    if len(arr) <1:
+        winner='75960609014300111'
+        t = time.time()
+        tr = round(t)
+        ts = str(tr)
+        pubk= os.getenv('API_pub')
+        prik=os.getenv('API_pri')
+        key = ts+prik+pubk
+        hash = hashlib.md5(key.encode("utf-8")).hexdigest()
+        print(hash)
+        com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
+        com_json=com.json()
+        com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
+        print(com_dumps)
+        image = com_json['data']['results'][0]['images'][0]['path']
+        print(image)
+        image_path=(image+'/portrait_fantastic.jpg')
+        print(image_path)
+        book_title=com_json['data']['results'][0]['title']
+    else:
+        count=Counter(arr)
+        print(count)
+        new=count.most_common()
+        print(new)
+        (j,_)=(new[0])
+        winner=j
+        print(winner)
+        t = time.time()
+        tr = round(t)
+        ts = str(tr)
+        pubk= os.getenv('API_pub')
+        prik=os.getenv('API_pri')
+        key = ts+prik+pubk
+        hash = hashlib.md5(key.encode("utf-8")).hexdigest()
+        print(hash)
+        com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
+        com_json=com.json()
+        com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
+        # print(com_dumps)
+        image = com_json['data']['results'][0]['images'][0]['path']
+        print(image)
+        image_path=(image+'/portrait_fantastic.jpg')
+        print(image_path)
+        print(list)
+        book_title=com_json['data']['results'][0]['title']
     context={
         'alpha_lists': list,
         'current_user':user,
@@ -220,32 +260,52 @@ def rd_landing(request):
         else:
             print('crap')
     print(arr)
-    count=Counter(arr)
-    print(count)
-    new=count.most_common()
-    print(new)
-    (j,_)=(new[0])
-    winner=j
-    print(winner)
-    t = time.time()
-    tr = round(t)
-    ts = str(tr)
-    pubk= os.getenv('API_pub')
-    prik=os.getenv('API_pri')
-    key = ts+prik+pubk
-    hash = hashlib.md5(key.encode("utf-8")).hexdigest()
-    print(hash)
-    com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
-    com_json=com.json()
-    com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
-    # print(com_dumps)
-    image = com_json['data']['results'][0]['images'][0]['path']
-    print(image)
-    image_path=(image+'/portrait_fantastic.jpg')
-    print(image_path)
-    print(list)
-    print(list)
-    book_title=com_json['data']['results'][0]['title']
+    if len(arr) <1:
+        winner='75960609014300111'
+        t = time.time()
+        tr = round(t)
+        ts = str(tr)
+        pubk= os.getenv('API_pub')
+        prik=os.getenv('API_pri')
+        key = ts+prik+pubk
+        hash = hashlib.md5(key.encode("utf-8")).hexdigest()
+        print(hash)
+        com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
+        com_json=com.json()
+        com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
+        print(com_dumps)
+        image = com_json['data']['results'][0]['images'][0]['path']
+        print(image)
+        image_path=(image+'/portrait_fantastic.jpg')
+        print(image_path)
+        book_title=com_json['data']['results'][0]['title']
+    else:
+        count=Counter(arr)
+        print(count)
+        new=count.most_common()
+        print(new)
+        (j,_)=(new[0])
+        winner=j
+        print(winner)
+        t = time.time()
+        tr = round(t)
+        ts = str(tr)
+        pubk= os.getenv('API_pub')
+        prik=os.getenv('API_pri')
+        key = ts+prik+pubk
+        hash = hashlib.md5(key.encode("utf-8")).hexdigest()
+        print(hash)
+        com = requests.get(f'https://gateway.marvel.com:443/v1/public/comics?&upc={winner}&ts={ts}&apikey={pubk}&hash={hash}')
+        com_json=com.json()
+        com_dumps=json.dumps(com_json,sort_keys=True,indent=4)
+        # print(com_dumps)
+        image = com_json['data']['results'][0]['images'][0]['path']
+        print(image)
+        image_path=(image+'/portrait_fantastic.jpg')
+        print(image_path)
+        print(list)
+        print(list)
+        book_title=com_json['data']['results'][0]['title']
     context={
         'rd_lists': list,
         'current_user':user,
@@ -477,6 +537,9 @@ def del_conf_comic(request):
 def most_fav(request):
     lists=Comic.objects.values('title','upc', 'favorite')
     fav_arr=[]
+    # if len(lists)==0:
+    #     fav
+
     for list in lists:
         if list['favorite']!=None:
             fav_arr.append(list['upc'])
